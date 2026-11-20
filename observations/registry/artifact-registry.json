@@ -1,0 +1,5 @@
+{
+  "registry_version": "0.1-draft",
+  "artifacts": [],
+  "notes": "Append entries; do not overwrite prior observations. Metadata and source locators only unless content retention is explicitly authorized."
+}
