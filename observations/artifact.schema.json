@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Artifact Observation",
+  "type": "object",
+  "required": [
+    "artifact_id",
+    "artifact_type",
+    "origin",
+    "observed_at",
+    "content_fingerprint",
+    "status"
+  ],
+  "properties": {
+    "artifact_id": {
+      "type": "string"
+    },
+    "artifact_type": {
+      "enum": [
+        "source_file",
+        "generated_file",
+        "blueprint",
+        "prompt_record",
+        "model_output",
+        "dataset",
+        "binary",
+        "unknown"
+      ]
+    },
+    "origin": {
+      "type": "object",
+      "required": [
+        "source_kind",
+        "locator"
+      ],
+      "properties": {
+        "source_kind": {
+          "type": "string"
+        },
+        "locator": {
+          "type": "string"
+        },
+        "authorship": {
+          "type": "string"
+        },
+        "parent_artifact_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "observed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "content_fingerprint": {
+      "type": "object",
+      "properties": {
+        "algorithm": {
+          "const": "SHA-256"
+        },
+        "value": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "input_basis": {
+          "const": "exact_source_bytes"
+        }
+      }
+    },
+    "status": {
+      "enum": [
+        "observed",
+        "changed",
+        "missing",
+        "unavailable",
+        "conflicted",
+        "superseded"
+      ]
+    },
+    "confidence": {
+      "enum": [
+        "verified",
+        "observed",
+        "inferred",
+        "uncertain"
+      ]
+    },
+    "conflict_group": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  }
+}
